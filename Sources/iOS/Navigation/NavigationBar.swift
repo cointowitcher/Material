@@ -124,19 +124,6 @@ open class NavigationBar: UINavigationBar, Themeable {
     layoutShape()
     layoutShadowPath()
     
-    //iOS 11 added left/right layout margin in subviews of UINavigationBar
-    //since we do not want to unsafely access private views directly, we
-    //iterate through the subviews to set `layoutMargins` to zero
-    for v in subviews {
-      if #available(iOS 13.0, *) {
-        let margins = v.layoutMargins
-        v.frame.origin.x = -margins.left
-        v.frame.size.width += margins.left + margins.right
-      } else {
-        v.layoutMargins = .zero
-      }
-    }
-    
     if let v = topItem {
       layoutNavigationItem(item: v)
     }
